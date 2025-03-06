@@ -8,8 +8,8 @@ def connect_and_query_db():
     # Criar um DataFrame fictício
     data = {
         "id": [1, 2, 3],
-        "nome": ["Alice", "Bob", "Charlie"],
-        "idade": [25, 30, 35]
+        "nome": ["Hanna", "Hayane", "Heloisa"],
+        "idade": [20, 10, 16]
     }
     df = pd.DataFrame(data)
     
