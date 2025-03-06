@@ -1,0 +1,35 @@
+import os
+import time
+import shutil
+
+def monitor_and_update(source_folder, destination_folder, interval=10):
+    """Monitora a pasta e copia arquivos atualizados para outra."""
+    if not os.path.exists(destination_folder):
+        os.makedirs(destination_folder)
+    
+    print(f"Monitorando '{source_folder}' e atualizando '{destination_folder}'...")
+    
+    while True:
+        for filename in os.listdir(source_folder):
+            source_path = os.path.join(source_folder, filename)
+            destination_path = os.path.join(destination_folder, filename)
+            
+            if os.path.isfile(source_path):
+                if not os.path.exists(destination_path) or os.path.getmtime(source_path) > os.path.getmtime(destination_path):
+                    shutil.copy2(source_path, destination_path)
+                    print(f"Arquivo atualizado: {filename}")
+        
+        time.sleep(interval)
+
+if __name__ == "__main__":
+    pasta_origem = os.path.abspath("C:/Users/SeuUsuario/Documentos/Monitoramento/entrada")  # Caminho absoluto da pasta de origem
+    pasta_destino = os.path.abspath("C:/Users/SeuUsuario/Documentos/Monitoramento/saida")  # Caminho absoluto da pasta de destino
+    intervalo = 5  # segundos
+    
+    print(f"Pasta de origem: {pasta_origem}")
+    print(f"Pasta de destino: {pasta_destino}")
+    
+    # Nome do arquivo monitorado
+    print("Monitorando arquivos como 'dados_importantes.xlsx' dentro da pasta de origem...")
+    
+    monitor_and_update(pasta_origem, pasta_destino, intervalo)
