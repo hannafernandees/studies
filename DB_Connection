@@ -1,0 +1,30 @@
+import pandas as pd
+import sqlite3
+
+def connect_and_query_db():
+    # Conectar ao banco de dados SQLite (ou criar se não existir)
+    conn = sqlite3.connect("meu_banco_de_dados.db")
+    
+    # Criar um DataFrame fictício
+    data = {
+        "id": [1, 2, 3],
+        "nome": ["Alice", "Bob", "Charlie"],
+        "idade": [25, 30, 35]
+    }
+    df = pd.DataFrame(data)
+    
+    # Salvar o DataFrame no banco de dados
+    df.to_sql("usuarios", conn, if_exists="replace", index=False)
+    
+    # Consultar os dados do banco
+    query = "SELECT * FROM usuarios"
+    df_resultado = pd.read_sql(query, conn)
+    
+    # Fechar conexão
+    conn.close()
+    
+    return df_resultado
+
+if __name__ == "__main__":
+    resultado = connect_and_query_db()
+    print(resultado)
