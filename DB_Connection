@@ -2,10 +2,10 @@ import pandas as pd
 import sqlite3
 
 def connect_and_query_db():
-    # Conectar ao banco de dados SQLite (ou criar se não existir)
+    # conectar ao banco de dados
     conn = sqlite3.connect("meu_banco_de_dados.db")
     
-    # Criar um DataFrame fictício
+    # cria um DataFrame fictício
     data = {
         "id": [1, 2, 3],
         "nome": ["Hanna", "Hayane", "Heloisa"],
@@ -13,14 +13,14 @@ def connect_and_query_db():
     }
     df = pd.DataFrame(data)
     
-    # Salvar o DataFrame no banco de dados
+    # salva o DataFrame no banco de dados
     df.to_sql("usuarios", conn, if_exists="replace", index=False)
     
-    # Consultar os dados do banco
+    # consulta os dados do banco
     query = "SELECT * FROM usuarios"
     df_resultado = pd.read_sql(query, conn)
     
-    # Fechar conexão
+    # fechar conexão
     conn.close()
     
     return df_resultado
